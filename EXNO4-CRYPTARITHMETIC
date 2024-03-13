@@ -1,0 +1,27 @@
+import itertools
+
+def solve_cryptarithmetic(puzzle):
+
+    words = puzzle.split()
+    unique_letters = list(set(''.join(words)))  
+    digit_mappings = itertools.permutations(range(10), len(unique_letters))
+    
+    for mapping in digit_mappings:
+        if all(mapping[unique_letters.index(word[0])] != 0 for word in words if len(word) > 1):
+     
+            mapping_dict = {letter: digit for letter, digit in zip(unique_letters, mapping)}
+            digits = [int(''.join(str(mapping_dict[letter]) for letter in word)) for word in words]
+            
+            if sum(digits[:-1]) == digits[-1]:
+                return mapping_dict
+
+    return None
+
+puzzle = "SEND + MORE = MONEY"
+solution = solve_cryptarithmetic(puzzle)
+if solution:
+    print("Solution found:")
+    for letter, digit in solution.items():
+        print(f"{letter}: {digit}")
+else:
+    print("No solution found.")
