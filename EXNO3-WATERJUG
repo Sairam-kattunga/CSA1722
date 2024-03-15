@@ -28,22 +28,16 @@ def get_neighbors(state, capacity1, capacity2):
     jug1, jug2 = state.jug1, state.jug2
     neighbors = []
 
-    # Fill jug1
     neighbors.append(State(capacity1, jug2))
 
-    # Fill jug2
     neighbors.append(State(jug1, capacity2))
 
-    # Empty jug1
     neighbors.append(State(0, jug2))
 
-    # Empty jug2
     neighbors.append(State(jug1, 0))
 
-    # Pour jug1 to jug2
     neighbors.append(State(*pour(jug1, jug2, capacity1, capacity2)))
 
-    # Pour jug2 to jug1
     neighbors.append(State(*pour(jug2, jug1, capacity2, capacity1)))
 
     return neighbors
