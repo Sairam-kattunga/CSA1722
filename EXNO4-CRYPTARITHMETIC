@@ -1,27 +1,17 @@
-import itertools
+from itertools import permutations
+def solve_cryptarithmetic():
+    for values in permutations(range(10), 8):
+        s, e, n, d, m, o, r, y = values
+        if s != 0 and m != 0: 
+            send = s * 1000 + e * 100 + n * 10 + d
+            more = m * 1000 + o * 100 + r * 10 + e
+            money = m * 10000 + o * 1000 + n * 100 + e * 10 + y
+            if send + more == money:
+                return send, more, money
 
-def solve_cryptarithmetic(puzzle):
-
-    words = puzzle.split()
-    unique_letters = list(set(''.join(words)))  
-    digit_mappings = itertools.permutations(range(10), len(unique_letters))
-    
-    for mapping in digit_mappings:
-        if all(mapping[unique_letters.index(word[0])] != 0 for word in words if len(word) > 1):
-     
-            mapping_dict = {letter: digit for letter, digit in zip(unique_letters, mapping)}
-            digits = [int(''.join(str(mapping_dict[letter]) for letter in word)) for word in words]
-            
-            if sum(digits[:-1]) == digits[-1]:
-                return mapping_dict
-
-    return None
-
-puzzle = "SEND + MORE = MONEY"
-solution = solve_cryptarithmetic(puzzle)
-if solution:
-    print("Solution found:")
-    for letter, digit in solution.items():
-        print(f"{letter}: {digit}")
+result = solve_cryptarithmetic()
+if result:
+    send, more, money = result
+    print(f"SEND = {send}, MORE = {more}, MONEY ={money}")
 else:
     print("No solution found.")
