@@ -1,0 +1,5 @@
+dob(john, date(1990, 5, 15)).
+dob(mary, date(1985, 10, 25)).
+dob(peter, date(1978, 3, 8)).
+dob(lisa, date(1995, 8, 20)).
+dob(david, date(1980, 12, 3)).
