@@ -1,0 +1,20 @@
+symptom(fever, flu).
+symptom(cough, flu).
+symptom(sore_throat, flu).
+symptom(runny_nose, flu).
+symptom(fever, cold).
+symptom(cough, cold).
+symptom(sneezing, cold).
+
+disease(flu, [fever, cough, sore_throat, runny_nose]).
+disease(cold, [fever, cough, sneezing]).
+
+
+diagnose(Symptoms, Disease) :-
+    disease(Disease, DiseaseSymptoms),
+    subset(DiseaseSymptoms, Symptoms).
+
+subset([], _).
+subset([H|T], List) :-
+    member(H, List),
+    subset(T, List).
