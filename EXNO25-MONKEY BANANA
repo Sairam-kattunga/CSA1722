@@ -1,0 +1,41 @@
+initial_state(0, at_door, on_floor, on_floor).
+
+
+final_state(_, at_bananas, _, _).
+
+action(pickup_box, [at_door, on_floor, on_floor], [at_door, on_box, on_floor]).
+action(climb_box, [at_door, on_box, on_floor], [at_door, on_box, on_box]).
+action(push_box, [at_door, on_box, on_box], [at_bananas, on_box, on_box]).
+action(walk_to_bananas, [at_door, on_floor, on_floor], [at_bananas, on_floor, on_floor]).
+
+valid(pickup_box, State) :- member(at_door, State), member(on_floor, State).
+valid(climb_box, State) :- member(at_door, State), member(on_box, State).
+valid(push_box, State) :- member(at_door, State), member(on_box, State).
+valid(walk_to_bananas, State) :- member(at_door, State).
+
+execute(Action, State, NewState) :-
+    action(Action, Precondition, Effect),
+    subset(Precondition, State),
+    delete_all(State, Precondition, Temp),
+    union(Temp, Effect, NewState).
+
+solve(State, Actions) :-
+    final_state(State, _, _, _),
+    Actions = [].
+solve(State, [Action|Rest]) :-
+    valid(Action, State),
+    execute(Action, State, NewState),
+    solve(NewState, Rest).
+
+delete_all([], _, []).
+delete_all([X|T], L2, Result) :-
+    member(X, L2), !, delete_all(T, L2, Result).
+delete_all([X|T], L2, [X|Result]) :- delete_all(T, L2, Result).
+
+
+main :-
+    initial_state(MonkeyPosition, _, _, _),
+    solve([MonkeyPosition, on_floor, on_floor], Actions),
+    write('Actions to reach bananas: '), writeln(Actions).
+
+
