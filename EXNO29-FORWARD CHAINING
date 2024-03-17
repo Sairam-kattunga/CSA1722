@@ -1,0 +1,7 @@
+has_feathers(penguin).
+has_feathers(albatross).
+lays_eggs(penguin).
+flies(X) :- has_feathers(X), lays_eggs(X).
+
+can_fly(X) :- flies(X), write(X), write(' can fly.\n').
+
