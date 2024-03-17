@@ -1,0 +1,10 @@
+diet(heart_disease, ['fruits', 'vegetables', 'whole grains', 'lean protein', 'fish']).
+diet(diabetes, ['whole grains', 'vegetables', 'lean protein', 'low-fat dairy', 'nuts']).
+diet(high_blood_pressure, ['fruits', 'vegetables', 'whole grains', 'lean protein', 'low-fat dairy']).
+diet(cholesterol, ['fruits', 'vegetables', 'whole grains', 'lean protein', 'nuts']).
+diet(weight_loss, ['fruits', 'vegetables', 'whole grains', 'lean protein', 'low-fat dairy']).
+
+suggest_diet(Person, Disease, Diet) :-
+    diet(Disease, RecommendedFoods),
+    format('For ~w with ~w, recommended diet is: ~w', [Person, Disease, RecommendedFoods]),
+    Diet = RecommendedFoods.
