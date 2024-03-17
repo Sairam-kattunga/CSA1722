@@ -1,0 +1,25 @@
+teaches(ms_smith, math).
+teaches(mr_jones, science).
+teaches(mr_brown, english).
+
+enrolled(john, math).
+enrolled(john, science).
+enrolled(emma, english).
+enrolled(emma, science).
+enrolled(mark, math).
+enrolled(mark, english).
+
+teaches_subject(Teacher, Subject) :-
+    teaches(Teacher, Subject).
+
+enrolled_in_subject(Student, Subject) :-
+    enrolled(Student, Subject).
+
+subjects_taught(Teacher, Subjects) :-
+    setof(Subject, teaches(Teacher, Subject), Subjects).
+
+subjects_enrolled(Student, Subjects) :-
+    setof(Subject, enrolled(Student, Subject), Subjects).
+
+students_taught_by_teacher(Teacher, Students) :-
+    setof(Student, (teaches(Teacher, Subject), enrolled(Student, Subject)), Students).
