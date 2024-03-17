@@ -1,0 +1,21 @@
+edge(a, b).
+edge(a, c).
+edge(b, d).
+edge(b, e).
+edge(c, f).
+edge(c, g).
+
+bfs(Start, Goal) :-
+    bfs_path([Start], Goal, Path),
+    print_path(Path).
+
+bfs_path([Goal|Path], Goal, [Goal|Path]).
+
+bfs_path([Current|Path], Goal, FinalPath) :-
+    findall(Next, (edge(Current, Next), \+ member(Next, [Current|Path])), NextList),
+    append(Path, NextList, NewPath),
+    bfs_path(NewPath, Goal, FinalPath).
+
+print_path([]).
+print_path([X]) :- write(X), nl.
+print_path([X|T]) :- write(X), write(' -> '), print_path(T).
