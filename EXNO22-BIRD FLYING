@@ -1,0 +1,16 @@
+bird(canary).
+bird(eagle).
+bird(ostrich).
+
+flies(canary).
+flies(eagle).
+
+can_fly(Bird) :-
+    bird(Bird),
+    flies(Bird),
+    write(Bird), write(' can fly.').
+
+can_fly(Bird) :-
+    bird(Bird),
+    \+ flies(Bird),
+    write(Bird), write(' cannot fly.').
